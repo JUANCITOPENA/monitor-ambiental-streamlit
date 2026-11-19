@@ -1,0 +1,20 @@
+# Entorno virtual seguro de Python
+.venv/
+venv/
+ENV/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribución / empaquetado
+build/
+dist/
+*.egg-info/
+
+# Archivos temporales de Streamlit y descargas locales
+.streamlit/
+*.csv
+.DS_Store
+Thumbs.db
