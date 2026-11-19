@@ -1,43 +1,54 @@
-# 🌍 Monitor Ambiental y Calidad del Aire (Streamlit Pro)
+# 🌍 Monitor Ambiental y Calidad del Aire (Streamlit Pro v2.0)
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=JUANCITOPENA/monitor-ambiental-streamlit&branch=main&mainModule=app.py)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/JUANCITOPENA/monitor-ambiental-streamlit)
+[![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-blue?logo=python)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-v1.67.0-FF4B4B?logo=streamlit)](https://streamlit.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Sistema analítico e interactivo desarrollado en **Python** con **Streamlit** y **Plotly** para la monitorización en tiempo real y predicción horaria de variables meteorológicas críticas y niveles de polución atmosférica a nivel global, mediante integración en vivo con las APIs abiertas de **Open-Meteo**.
+> **Plataforma Analítica Enterprise en Tiempo Real** para la monitorización de variables meteorológicas críticas y biomarcadores de contaminación atmosférica global, equipada con **Motor Heurístico de Narración Ejecutiva por Voz (Web Speech API TTS)** y comparativa toxicológica estricta contra los estándares de la **Organización Mundial de la Salud (OMS)**.
+
+---
+
+## 🖼️ Galería Visual del Sistema en Producción
+
+### 1. Portada Principal: Tarjetas Bento de KPIs y Consola de Narración Ejecutiva
+![01 Portada y KPIs](docs/screenshots/01_hero_kpis_narrador.png)
+
+### 2. Analítica Avanzada: Evolución Térmica/Lluvia y Contaminantes vs Límites OMS
+![02 Graficos Analiticos](docs/screenshots/02_graficos_analiticos_clima_aire.png)
+
+### 3. Mapa de Calor Horario UV (Riesgo Dermatológico) y Repositorio de Datos
+![03 Heatmap UV y Tabla](docs/screenshots/03_heatmap_uv_tabla_consolidada.png)
 
 ---
 
 ## 📌 Tabla de Contenidos
-1. [Visión General](#-visión-general)
-2. [Arquitectura del Sistema](#-arquitectura-del-sistema)
-3. [Fuentes de Datos y APIs](#-fuentes-de-datos-y-apis)
-4. [Métricas y Parámetros Analizados](#-métricas-y-parámetros-analizados)
-5. [Estructura del Proyecto](#-estructura-del-proyecto)
-6. [Instalación y Configuración](#-instalación-y-configuración)
-7. [Modo de Uso](#-modo-de-uso)
-8. [Detalle de Componentes Visuales](#-detalle-de-componentes-visuales)
+1. [Visión y Propósito del Sistema](#-visión-y-propósito-del-sistema)
+2. [Arquitectura de Software y Pipeline ETL](#-arquitectura-de-software-y-pipeline-etl)
+3. [Motor de Inteligencia Narrativa e Interpretación Ejecutiva (TTS)](#-motor-de-inteligencia-narrativa-e-interpretación-ejecutiva-tts)
+4. [Manual de Traspaso Técnico para Desarrolladores](#-manual-de-traspaso-técnico-para-desarrolladores)
+5. [Endpoints Satelitales y Diccionario de Datos](#-endpoints-satelitales-y-diccionario-de-datos)
+6. [Parámetros Toxicológicos y Estándares OMS](#-parámetros-toxicológicos-y-estándares-oms)
+7. [Instalación Local y Despliegue en la Nube](#-instalación-local-y-despliegue-en-la-nube)
+8. [Estructura del Proyecto](#-estructura-del-proyecto)
 9. [Gobernanza y Buenas Prácticas](#-gobernanza-y-buenas-prácticas)
 10. [Créditos y Autoría](#-créditos-y-autoría)
 
 ---
 
-## 🔬 Visión General
+## 🔬 Visión y Propósito del Sistema
 
-El **Monitor Ambiental y Calidad del Aire** es una estación de control meteorológico y ambiental orientada a la toma de decisiones informadas para salud pública, gestión de operaciones al aire libre y análisis climatológico.
-
-### Capacidades Principales:
-- **Cobertura Multiciudad:** Catálogo preconfigurado con ciudades clave (Santo Domingo, Santiago de los Caballeros, Madrid, Ciudad de México, Bogotá, Buenos Aires).
-- **Horizonte Dinámico de Análisis:** Exploración horaria configurable de 1 a 5 días continuos.
-- **Doble Fuente Satelital:** Fusión en tiempo real de pronóstico numérico meteorológico y estaciones de monitoreo químico atmosférico.
-- **Caché Inteligente de Alta Eficiencia:** Mecanismo de persistencia temporal (`@st.cache_data(ttl=900)`) que congela los datos durante 15 minutos, reduciendo drásticamente la latencia y las llamadas a red redundantes.
-- **Comparativa Estadística:** Tarjetas KPI con evaluación delta en tiempo real comparando la condición actual contra el promedio histórico del período seleccionado.
-- **Exportación de Datos:** Descarga de reportes tabulares consolidados en formato CSV delimitado por comas con codificación UTF-8.
+El **Monitor Ambiental y Calidad del Aire** fue concebido para resolver la desconexión habitual entre los datos numéricos crudos y la toma de decisiones directivas. En lugar de limitarse a presentar gráficos pasivos, el sistema:
+1. **Analiza e interpreta dinámicamente** los resultados según la ciudad seleccionada y el horizonte de tiempo.
+2. **Genera dictámenes ejecutivos hablados** mediante síntesis de voz nativa del navegador, ofreciendo a directores de operaciones, coordinadores de seguridad laboral y personal de salud un informe interpretado al instante.
+3. **Compara cuantitativamente** cada observación contra las directrices de calidad del aire 2021 de la OMS, emitiendo recomendaciones específicas sobre salud pulmonar, protección solar y riesgos logísticos por lluvias.
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## 🏗️ Arquitectura de Software y Pipeline ETL
 
-El flujo de procesamiento de datos sigue un patrón clásico **ETL (Extract, Transform, Load)** optimizado en memoria:
+El sistema opera bajo una arquitectura desacoplada de 3 capas de ejecución:
 
 ```
 ┌─────────────────────────────────┐       ┌──────────────────────────────────┐
@@ -45,74 +56,148 @@ El flujo de procesamiento de datos sigue un patrón clásico **ETL (Extract, Tra
 │  (Temperatura, Lluvia, UV, Hum) │       │   (PM2.5, PM10, CO, AQI Europeo) │
 └────────────────┬────────────────┘       └────────────────┬─────────────────┘
                  │                                         │
-                 │ JSON (Hourly Payload)                   │ JSON (Hourly Payload)
+                 │ JSON Payload (Hourly)                   │ JSON Payload (Hourly)
                  └──────────────────┬──────────────────────┘
                                     │
                                     ▼
                 ┌──────────────────────────────────────┐
+                │  Capa ETL con Caché en Memoria       │
                 │  @st.cache_data(ttl=900)             │
-                │  Extracción HTTP con requests        │
-                │  Timeout controlado (10s)            │
+                │  - Timeout estricto de 12 segundos   │
+                │  - Inner Join temporal sobre 'time'  │
+                │  - Parseo a datetime64 / date / hora │
                 └──────────────────┬───────────────────┘
                                     │
                                     ▼
                 ┌──────────────────────────────────────┐
-                │  Transformación en Pandas DataFrame  │
-                │  Inner Join sobre columna 'time'     │
-                │  Parseo temporal (fecha / hora)      │
+                │  Motor Heurístico de Interpretación  │
+                │  - Detección de anomalías térmicas   │
+                │  - Cálculo de exceso porcentual OMS  │
+                │  - Identificación ventanas UV >= 6   │
+                │  - Redacción de informes ejecutivos  │
                 └──────────────────┬───────────────────┘
                                     │
                                     ▼
                 ┌──────────────────────────────────────┐
-                │        Capa de Presentación          │
-                │  Streamlit Metrics + Plotly Charts   │
-                │  - Tarjetas Bento de KPIs            │
-                │  - Serie temporal mixta Línea/Barra  │
-                │  - Área rellena PM2.5 vs PM10        │
-                │  - Heatmap horario de Índice UV      │
-                │  - Dataframe interactivo descargable │
+                │  Capa de Presentación Multimedia     │
+                │  - Web Speech API TTS (Audio Nativo) │
+                │  - Plotly Express & Graph Objects    │
+                │  - Bento Grid Metrics con Deltas     │
+                │  - Exportador CSV en UTF-8           │
                 └──────────────────────────────────────┘
 ```
 
 ---
 
-## 📡 Fuentes de Datos y APIs
+## 🎙️ Motor de Inteligencia Narrativa e Interpretación Ejecutiva (TTS)
 
-La aplicación consume dos endpoints REST públicos y libres de claves de **Open-Meteo**:
+A diferencia de los lectores de pantalla convencionales que se limitan a deletrear texto estático, este sistema implementa un **motor de síntesis analítica contextual**:
 
-1. **Weather Forecast API (`https://api.open-meteo.com/v1/forecast`):**
-   - Variables horarias solicitadas:
-     - `temperature_2m`: Temperatura del aire a 2 metros de superficie (°C).
-     - `relative_humidity_2m`: Humedad relativa porcentual (%).
-     - `precipitation_probability`: Probabilidad de precipitación pluvial (0-100%).
-     - `uv_index`: Índice de radiación ultravioleta.
+### ¿Cómo Funciona la Narración por Sección?
 
-2. **Air Quality API (`https://air-quality-api.open-meteo.com/v1/air-quality`):**
-   - Variables horarias solicitadas:
-     - `pm10`: Concentración de material particulado $\le 10\ \mu\text{m}$ ($\mu\text{g/m}^3$).
-     - `pm2_5`: Concentración de material particulado fino $\le 2.5\ \mu\text{m}$ ($\mu\text{g/m}^3$).
-     - `carbon_monoxide`: Monóxido de carbono ($\mu\text{g/m}^3$).
-     - `european_aqi`: Índice de Calidad del Aire Europeo (EAQI).
+| Componente del Dashboard | Lógica de Interpretación Ejecutiva que Narra |
+| :--- | :--- |
+| **Tarjetas Bento de KPIs** | Contrasta la temperatura actual contra el promedio histórico del horizonte; evalúa si las partículas PM2.5 violan el límite de 15 µg/m³ de la OMS; categoriza el impacto biológico del AQI y emite directrices de habitabilidad. |
+| **Gráfico Mixto de Clima** | Calcula la oscilación térmica ($\Delta T = T_{\max} - T_{\min}$); identifica si existen probabilidades de lluvia $\ge 50\%$ e indica la fecha y hora exacta del primer episodio pluvial para activar protocolos de transporte. |
+| **Contaminantes Atmosféricos** | Computa el porcentaje exacto de horas del período donde se sobrepasan los límites sanitarios internacionales; recomienda el uso de respiradores N95/FFP2 para cuadrillas de campo si la polución es crónica. |
+| **Mapa de Calor Índice UV** | Realiza un barrido horario detectando la ventana de riesgo radiotérmico crítico ($UV \ge 6$); especifica el intervalo de horas donde está prohibida la exposición directa sin fotoprotección de amplio espectro FPS 50+. |
+| **Repositorio Tabular** | Certifica la cantidad total de registros procesados, el rango de fechas cubierto y garantiza la coherencia relacional de las variables para auditoría corporativa. |
+
+### Controles Multimedia Integrados (Estándar JPV Pro):
+- **Botón `[▶️ Escuchar Informe]`**: Sintetiza en español fluido con tono y cadencia ejecutiva.
+- **Botones `[⏸️ Pausar]` / `[⏯️ Reanudar]` / `[⏹️ Detener]`**: Control total del flujo de reproducción.
+- **Ecualizador Visual Verde Pulsante**: Señalización óptica en tiempo real del estado de emisión.
+- **Consola Táctil de Volumen**: Micro-ajustes rápidos con botones `[-]` y `[+]`, y control deslizante continuo de `0%` a `100%`.
+- **Panel Desplegable de Transcripción**: Permite leer en texto íntegro el informe sintetizado (accesibilidad WCAG 2.2 AAA).
 
 ---
 
-## 📊 Métricas y Parámetros Analizados
+## 👨‍💻 Manual de Traspaso Técnico para Desarrolladores
 
-### 1. Material Particulado (PM2.5 y PM10)
-- **PM2.5:** Partículas microscópicas capaces de penetrar profundamente en las vías respiratorias y el torrente sanguíneo.
-  - **Umbral de Referencia OMS (2021):** Exposición media en 24 horas no debe superar los **$15\ \mu\text{g/m}^3$** (marcado con línea discontinua verde en el gráfico).
-- **PM10:** Partículas inhalables de polvo, polen y residuos de combustión. Límite de referencia OMS de **$45\ \mu\text{g/m}^3$**.
+Si eres un nuevo ingeniero que hereda o mantiene este proyecto, a continuación tienes las pautas operativas fundamentales:
 
-### 2. Índice de Calidad del Aire (European AQI)
-- **Bueno (< 40):** Aire limpio, sin riesgo para la población general.
-- **Moderado (40 - 59):** Calidad aceptable; personas extraordinariamente sensibles deben vigilar síntomas respiratorios.
-- **Deficiente ($\ge$ 60):** Posibles efectos adversos para grupos de riesgo (niños, adultos mayores, asmáticos).
+### 1. ¿Cómo agregar una nueva ciudad al catálogo?
+Abra [`app.py`](file:///C:/Users/User/Desktop/CARPETA%20DE%20TRABAJO%20DE%20ANTIGRAVITY%20CLI-JPV/monitor_ambiental_streamlit/app.py) y diríjase a la línea ~60. Añada una nueva entrada en el diccionario `CATALOGO_CIUDADES`:
+```python
+CATALOGO_CIUDADES: Dict[str, Tuple[float, float]] = {
+    "Santo Domingo, RD": (18.4861, -69.9312),
+    # AGREGUE SU CIUDAD AQUÍ (Nombre representativo: (Latitud, Longitud)):
+    "Barcelona, España": (41.3851, 2.1734),
+    "San José, Costa Rica": (9.9281, -84.0907),
+}
+```
+*No requiere modificar ninguna otra función ni gráfico; la interfaz y el selector se adaptan de forma autónoma.*
 
-### 3. Índice de Radiación Ultravioleta (UV Index)
-- **0 a 2 (Bajo):** Riesgo nulo o mínimo para la piel desprotegida.
-- **3 a 5 (Moderado):** Protección recomendada en horas centrales del día.
-- **6 a 7 (Alto):** Riesgo elevado; se requiere bloqueador solar FPS 50+, sombrero y gafas de sol.
-- **8 a 10 (Muy Alto) y 11+ (Extremo):** Evitar exposición directa entre 10:00 AM y 4:00 PM.
+### 2. ¿Cómo calibrar el tiempo de persistencia en caché?
+El decorador `@st.cache_data(ttl=900)` en `obtener_datos_ambientales()` almacena en memoria RAM las respuestas por **900 segundos (15 minutos)**:
+- Para entornos con tráfico intensivo: aumente a `ttl=1800` (30 minutos).
+- Para pruebas de desarrollo en vivo: reduzca a `ttl=60` (1 minuto).
+
+### 3. ¿Cómo ajustar los umbrales de alerta médica?
+Modifique las constantes de referencia sanitaria en el encabezado de `app.py`:
+```python
+UMBRAL_OMS_PM25_24H: float = 15.0   # En µg/m³
+UMBRAL_OMS_PM10_24H: float = 45.0   # En µg/m³
+UMBRAL_UV_ALTO_RIESGO: float = 6.0  # Índice UV
+```
+
+---
+
+## 📡 Endpoints Satelitales y Diccionario de Datos
+
+| Parámetro | Endpoint de Origen | Descripción Técnica | Unidad |
+| :--- | :--- | :--- | :--- |
+| `temperature_2m` | `api.open-meteo.com/v1/forecast` | Temperatura del aire a 2 metros sobre la superficie | Grados Celsius (°C) |
+| `relative_humidity_2m` | `api.open-meteo.com/v1/forecast` | Humedad relativa del aire calculada por psicrometría | Porcentaje (%) |
+| `precipitation_probability` | `api.open-meteo.com/v1/forecast` | Probabilidad de precipitación líquida acumulada en la hora | 0 a 100% |
+| `uv_index` | `api.open-meteo.com/v1/forecast` | Índice de radiación solar ultravioleta con corrección de albedo | Escala UV (0-12+) |
+| `pm10` | `air-quality-api.open-meteo.com/v1/air-quality` | Partículas inhalables de diámetro aerodinámico $\le 10\ \mu\text{m}$ | $\mu\text{g/m}^3$ |
+| `pm2_5` | `air-quality-api.open-meteo.com/v1/air-quality` | Partículas finas respirables de diámetro $\le 2.5\ \mu\text{m}$ | $\mu\text{g/m}^3$ |
+| `carbon_monoxide` | `air-quality-api.open-meteo.com/v1/air-quality` | Monóxido de carbono resultante de combustión incompleta | $\mu\text{g/m}^3$ |
+| `european_aqi` | `air-quality-api.open-meteo.com/v1/air-quality` | Índice de Calidad del Aire de la Agencia Europea del Medio Ambiente | Puntos (0-100+) |
+
+---
+
+## 🏥 Parámetros Toxicológicos y Estándares OMS
+
+### Directrices de Calidad del Aire (OMS 2021)
+- **Partículas PM2.5:**
+  - Límite de 24 horas: **$15\ \mu\text{g/m}^3$** (Umbral superado activa alerta médica en el narrador).
+  - Límite anual medio: **$5\ \mu\text{g/m}^3$**.
+- **Partículas PM10:**
+  - Límite de 24 horas: **$45\ \mu\text{g/m}^3$**.
+- **Índice UV Solar:**
+  - **Bajo (0 - 2):** Ninguna medida obligatoria.
+  - **Moderado (3 - 5):** Sombrero y FPS 30+.
+  - **Alto a Extremo ($\ge 6$):** Franja crítica destacada en el Heatmap; uso mandatorio de FPS 50+ y restricción de labores a cielo abierto.
+
+---
+
+## ⚙️ Instalación Local y Despliegue en la Nube
+
+### 1. Ejecución Local en Windows
+```powershell
+# 1. Clonar el repositorio
+git clone https://github.com/JUANCITOPENA/monitor-ambiental-streamlit.git
+cd monitor-ambiental-streamlit
+
+# 2. Crear y activar el entorno virtual seguro
+python -m venv .venv
+.\.venv\Scripts\activate
+
+# 3. Instalar librerías sin versiones forzadas
+pip install -r requirements.txt
+
+# 4. Lanzar la aplicación
+streamlit run app.py
+```
+*O simplemente haga doble clic en el archivo:* [`iniciar_monitor.bat`](file:///C:/Users/User/Desktop/CARPETA%20DE%20TRABAJO%20DE%20ANTIGRAVITY%20CLI-JPV/monitor_ambiental_streamlit/iniciar_monitor.bat)
+
+### 2. Despliegue en Streamlit Community Cloud
+El repositorio está 100% preparado para producción continua:
+1. Diríjase a: [https://share.streamlit.io/deploy](https://share.streamlit.io/deploy?repository=JUANCITOPENA/monitor-ambiental-streamlit&branch=main&mainModule=app.py)
+2. Seleccione repositorio `JUANCITOPENA/monitor-ambiental-streamlit`, rama `main` y archivo principal `app.py`.
+3. Presione **"Deploy!"** y la aplicación quedará accesible mundialmente con certificado SSL automático.
 
 ---
 
@@ -121,115 +206,27 @@ La aplicación consume dos endpoints REST públicos y libres de claves de **Open
 ```
 monitor_ambiental_streamlit/
 │
-├── .venv/                      # Entorno virtual seguro de Python (aislado)
-├── .gitignore                  # Exclusión de archivos temporales y venv
-├── app.py                      # Código fuente principal de la aplicación Streamlit
-├── requirements.txt            # Dependencias del proyecto (sin fijación de versiones)
-├── README.md                   # Documentación técnica completa (este archivo)
-├── STATUS.md                   # Bitácora de estado, requisitos e inventario técnico
-└── iniciar_monitor.bat         # Acceso directo para ejecutar la app en Windows
+├── .venv/                          # Entorno virtual seguro de Python (ignorado en Git)
+├── .gitignore                      # Reglas de exclusión para control de versiones
+├── app.py                          # Código maestro de la aplicación (ETL + IA Narrativa + UI)
+├── requirements.txt                # Dependencias oficiales sin fijación de versiones
+├── README.md                       # Documentación técnica completa con capturas HD
+├── STATUS.md                       # Bitácora de estado, matriz de requerimientos y auditoría
+├── iniciar_monitor.bat             # Lanzador rápido con 1 clic para entornos Windows
+│
+└── docs/
+    └── screenshots/                # Capturas reales de la aplicación en producción
+        ├── 01_hero_kpis_narrador.png
+        ├── 02_graficos_analiticos_clima_aire.png
+        ├── 03_heatmap_uv_tabla_consolidada.png
+        └── 00_dashboard_completo.png
 ```
-
----
-
-## ⚙️ Instalación y Configuración
-
-### Prerrequisitos:
-- **Python 3.10 o superior** instalado en el sistema operativo Windows.
-- Conexión a internet para la descarga inicial de paquetes y la consulta a las APIs de Open-Meteo.
-
-### Paso 1: Clonar o ubicar el directorio del proyecto
-```bash
-cd "C:\Users\User\Desktop\CARPETA DE TRABAJO DE ANTIGRAVITY CLI-JPV\monitor_ambiental_streamlit"
-```
-
-### Paso 2: Crear el Entorno Virtual Seguro (si no estuviese creado)
-```bash
-python -m venv .venv
-```
-
-### Paso 3: Activar el Entorno Virtual
-En PowerShell:
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-En Símbolo del Sistema (CMD):
-```cmd
-.\.venv\Scripts\activate.bat
-```
-
-### Paso 4: Instalar las dependencias requeridas
-El archivo `requirements.txt` define las librerías necesarias sin fijación estricta de versiones:
-```text
-streamlit
-requests
-pandas
-plotly
-```
-Instalación mediante pip:
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 🚀 Modo de Uso
-
-### Opción Rápida (Recomendada en Windows):
-Haga doble clic en el archivo ejecutable por lotes:
-```
-iniciar_monitor.bat
-```
-
-### Opción por Línea de Comandos:
-Con el entorno virtual activado, ejecute:
-```bash
-streamlit run app.py
-```
-
-La aplicación se iniciará y abrirá automáticamente en su navegador web predeterminado en:
-`http://localhost:8501`
-
----
-
-## 🎨 Detalle de Componentes Visuales
-
-1. **Sidebar de Control:**
-   - Selector desplegable de ciudades globales con coordenadas geográficas calibradas.
-   - Slider deslizante de horizonte de análisis (1 a 5 días).
-
-2. **Fila Superior de KPIs (4 Cards Bento):**
-   - **Temperatura Actual:** Muestra grados Celsius y el delta comparativo contra el promedio del período.
-   - **Partículas PM2.5:** Muestra concentración en $\mu\text{g/m}^3$ con delta en color inverso (el incremento de partículas es desfavorable).
-   - **Índice Calidad Aire (AQI):** Categorización semántica automática (Bueno, Moderado, Deficiente) y delta informativo de PM10.
-   - **Pico Máximo Índice UV:** Detección automática del valor máximo de radiación solar esperado con semáforo de riesgo (Riesgo Alto vs Moderado/Bajo).
-
-3. **Gráfico Mixto de Clima (Plotly):**
-   - Línea continua en tono naranja (#FF5733) para la curva de temperatura.
-   - Barras semi-transparentes (#3498DB) sobre un segundo eje Y (0 a 100%) para la probabilidad de lluvia.
-
-4. **Gráfico de Contaminantes (Plotly Area):**
-   - Áreas rellenas apiladas para contrastar concentraciones de PM2.5 y PM10 con línea de referencia OMS en verde ($15\ \mu\text{g/m}^3$).
-
-5. **Mapa de Calor Horario (Heatmap UV):**
-   - Matriz bidimensional (Eje X: Fechas, Eje Y: Horas del día 0 a 23h) con paleta `YlOrRd` (Amarillo a Rojo) para identificar con precisión quirúrgica las horas críticas de exposición solar.
-
-6. **Módulo de Exportación:**
-   - Tabla interactiva con búsqueda, ordenación por columnas y botón de descarga directa de un archivo CSV consolidado con nombre dinámico por ciudad.
-
----
-
-## 🛡️ Gobernanza y Buenas Prácticas
-
-- **Aislamiento en Entorno Virtual (.venv):** Garantiza que las dependencias del proyecto no colisionen con otros paquetes instalados globalmente en la máquina.
-- **Gestión de Errores de Red:** Las llamadas HTTP cuentan con un parámetro explícito `timeout=10` para prevenir bloqueos indefinidos si los servicios externos presentan caídas momentáneas.
-- **Cero Hardcoding de Credenciales:** La plataforma utiliza APIs públicas sin necesidad de tokens o llaves sensibles, preservando la confidencialidad.
-- **Cumplimiento de Estándares JPV:** Estructura modular, código limpio, documentación técnica exhaustiva y visualizaciones de alto impacto con contraste adecuado.
 
 ---
 
 ## 🏛️ Créditos y Autoría
 
-- **Desarrollador y Arquitecto de Solución:** Ing. Juancito Peña Vizcaíno
-- **Ecosistema:** Antigravity CLI / DataIADev Pro
+- **Arquitecto de Solución y Desarrollador Líder:** Ing. Juancito Peña Vizcaíno
+- **Organización / Ecosistema:** Antigravity CLI / DataIADev Pro
 - **Año:** 2026
+- **Perfil de Autoría:** [https://github.com/JUANCITOPENA](https://github.com/JUANCITOPENA)
