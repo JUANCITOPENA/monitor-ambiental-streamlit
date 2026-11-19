@@ -1,10 +1,14 @@
 # 🌍 Monitor Ambiental y Calidad del Aire (Streamlit Pro v2.0)
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=JUANCITOPENA/monitor-ambiental-streamlit&branch=main&mainModule=app.py)
+[![Demo en Vivo en Streamlit Cloud](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://monitor-ambiental-api-clima-open-meteo.streamlit.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/JUANCITOPENA/monitor-ambiental-streamlit)
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-blue?logo=python)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-v1.67.0-FF4B4B?logo=streamlit)](https://streamlit.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+> 🚀 **APLICACIÓN DESPLEGADA EN VIVO:**  
+> Puedes interactuar y probar el sistema directamente en tu navegador aquí:  
+> 👉 **[https://monitor-ambiental-api-clima-open-meteo.streamlit.app/](https://monitor-ambiental-api-clima-open-meteo.streamlit.app/)**
 
 > **Plataforma Analítica Enterprise en Tiempo Real** para la monitorización de variables meteorológicas críticas y biomarcadores de contaminación atmosférica global, equipada con **Motor Heurístico de Narración Ejecutiva por Voz (Web Speech API TTS)** y comparativa toxicológica estricta contra los estándares de la **Organización Mundial de la Salud (OMS)**.
 

@@ -8,8 +8,8 @@
 | **Entorno Virtual** | Python 3.14 (`.venv` aislado en modo seguro) |
 | **Ubicación Local** | `C:\Users\User\Desktop\CARPETA DE TRABAJO DE ANTIGRAVITY CLI-JPV\monitor_ambiental_streamlit` |
 | **Repositorio Remoto** | [https://github.com/JUANCITOPENA/monitor-ambiental-streamlit](https://github.com/JUANCITOPENA/monitor-ambiental-streamlit) |
-| **Despliegue Streamlit Cloud** | [Enlace de Despliegue Directo](https://share.streamlit.io/deploy?repository=JUANCITOPENA/monitor-ambiental-streamlit&branch=main&mainModule=app.py) |
-| **Estado Global** | 🟢 **100% Operativo, Auditado y Desplegable** |
+| **Aplicación en Vivo (Cloud)** | [https://monitor-ambiental-api-clima-open-meteo.streamlit.app/](https://monitor-ambiental-api-clima-open-meteo.streamlit.app/) |
+| **Estado Global** | 🟢 **100% Operativo, Desplegado en Producción y Auditado** |
 | **Autor / Arquitecto** | Ing. Juancito Peña Vizcaíno |
 
 ---
