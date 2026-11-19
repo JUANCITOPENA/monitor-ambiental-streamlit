@@ -1,5 +1,8 @@
 # 🌍 Monitor Ambiental y Calidad del Aire (Streamlit Pro)
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=JUANCITOPENA/monitor-ambiental-streamlit&branch=main&mainModule=app.py)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/JUANCITOPENA/monitor-ambiental-streamlit)
+
 Sistema analítico e interactivo desarrollado en **Python** con **Streamlit** y **Plotly** para la monitorización en tiempo real y predicción horaria de variables meteorológicas críticas y niveles de polución atmosférica a nivel global, mediante integración en vivo con las APIs abiertas de **Open-Meteo**.
 
 ---
